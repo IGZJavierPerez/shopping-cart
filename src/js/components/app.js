@@ -1,23 +1,25 @@
 var React = require('react');
-var Catalog = require('../components/catalog/catalog');
-var Cart = require('../components/cart/cart');
+var Router = require('react-router');
+var Catalog = require('./catalog/catalog.js');
+var Cart = require('./cart/cart.js');
+var CatalogDetail = require('./product/detail.js');
+var Template = require('./app-template.js');
 var AppActions = require('../actions/app-actions');
 
+var RouteHandler = Router.RouteHandler;
 
 var APP =
   React.createClass({
     componentDidMount: function() {
       AppActions.loadCatalog();
     },
-  	render: function() {
+    render:function(){
       return (
-      	<div>
-      	<h1>Let's Shop</h1>
-      	<Catalog />
-      	<h1>Cart</h1>
-      	<Cart />
-      	</div>
-      )
+        <Template>
+          <RouteHandler/>
+        </Template>
+
+        )
     }
   });
 
