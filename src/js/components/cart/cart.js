@@ -5,6 +5,9 @@ var Increase = require('./cart-increase.js');
 var Decrease = require('./cart-decrease.js');
 var StoreWatchMixin = require('../../mixins/StoreWatchMixin.js');
 
+var Router = require('react-router');
+var Link = Router.Link;
+
 function cartItems() {
   return {items: CartStore.getCart()};
 }
@@ -52,6 +55,9 @@ var Cart =
               </tr>
             </tfoot>
           </table>
+          <Link to="/">
+            Continue Shopping
+            </Link>
         </div>
         )
     }

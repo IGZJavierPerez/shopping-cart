@@ -15,7 +15,8 @@ var paths = {
   main: ['./src/js/main.js'],
   index: ['src/index.html'],
   all_js: ['src/**/*.*'],
-  bower: ['src/bower_components/**/*']
+  bower: ['src/bower_components/**/*'],
+  assets: ['src/assets/**/*']
 };
 
 // An example of a dependency task, it will be run before the css/js tasks.
@@ -51,6 +52,12 @@ gulp.task('copy_bower', function() {
     .pipe(gulp.dest('dist/bower_components'));
 });
 
+gulp.task('copy_assets', function() {
+    gulp.src(paths.assets)
+    .pipe(gulp.dest('dist/assets'));
+});
+
+
 gulp.task('connect', function() {
   connect.server({
     root: 'dist',
@@ -58,7 +65,7 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('copy',['copy_index', 'copy_bower']);
+gulp.task('copy',['copy_index', 'copy_bower', 'copy_assets']);
 
 // Rerun tasks whenever a file changes.
 gulp.task('watch', function() {

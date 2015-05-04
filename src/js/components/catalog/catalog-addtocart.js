@@ -7,7 +7,7 @@ var AddToCart =
   	  AppActions.addItem(this.props.item);
   	},
     render: function() {
-      return <button onClick={this.handleClick}>Add to cart</button>
+      return <button className="btn btn-default" onClick={this.handleClick}>Add to cart</button>
     }
   });
 

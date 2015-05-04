@@ -1,6 +1,6 @@
 var React = require('react');
 var CartStore = require('../../stores/cart-store.js');
-var AddToCart = require('./catalog-addtocart.js');
+var CatalogItem = require('./catalog-item.js');
 var StoreWatchMixin = require('../../mixins/StoreWatchMixin.js');
 
 function getCatalog() {
@@ -26,16 +26,14 @@ var Catalog =
         items = <tr><td>Loading...</td></tr>;
       } else {
         items = this.state.items.map(function(item, i) {
-          return <tr key={i}><td>{item.title}</td><td>{item.cost}</td><td><AddToCart item={item}/></td></tr>
+          return <CatalogItem key={item.id}  item={item} />
         });
       }
 
       return (
-          <table className="table table-hover">
-          <tbody>
+          <div className="row">
           {items}
-          </tbody>
-          </table>
+          </div>
         )
     }
   });
