@@ -17,8 +17,8 @@ function isLoading() {
 
 var Catalog =
   React.createClass({
-    mixins:[StoreWatchMixin(getCatalog)],
-    render:function(){
+    mixins: [new StoreWatchMixin(getCatalog)],
+    render: function() {
 
       var items;
 
@@ -26,7 +26,7 @@ var Catalog =
         items = <tr><td>Loading...</td></tr>;
       } else {
         items = this.state.items.map(function(item, i) {
-          return <CatalogItem key={item.id}  item={item} />
+          return (<CatalogItem key={item.id} item={item} />);
         });
       }
 
@@ -34,7 +34,8 @@ var Catalog =
           <div className="row">
           {items}
           </div>
-        )
+        );
     }
   });
+
 module.exports = Catalog;

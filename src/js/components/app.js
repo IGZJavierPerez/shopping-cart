@@ -13,13 +13,13 @@ var APP =
     componentDidMount: function() {
       AppActions.loadCatalog();
     },
-    render:function(){
+    render: function() {
       return (
         <Template>
           <RouteHandler/>
         </Template>
 
-        )
+        );
     }
   });
 

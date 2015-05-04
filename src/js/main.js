@@ -8,12 +8,11 @@ var CatalogDetail = require('./components/product/detail.js');
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 
-
 var routes = (
   <Route handler={APP}>
     <DefaultRoute handler={Catalog} />
     <Route name="cart" handler={Cart} />
-    <Route name="item" path="/item/:itemId" handler={CatalogDetail}  />
+    <Route name="item" path="/item/:itemId" handler={CatalogDetail} />
   </Route>
 );
 

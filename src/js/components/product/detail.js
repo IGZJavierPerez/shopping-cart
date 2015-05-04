@@ -5,26 +5,26 @@ var Link = Router.Link;
 var CartStore = require('../../stores/cart-store.js');
 var StoreWatchMixin = require('../../mixins/StoreWatchMixin.js');
 
-function getCatalogItem(component){
+function getCatalogItem(component) {
   //see: https://github.com/rackt/react-router/issues/975
   var itemId = component.context.router.getCurrentParams().itemId;
   var thisItem;
   CartStore.getCatalog().forEach(function(item) {
-  	if(item.id.toString() === itemId) {
+    if(item.id.toString() === itemId) {
       thisItem = item;
     }
   });
-  
+
   return {item: thisItem};
 }
 
 var CatalogDetail =
   React.createClass({
-  	mixins: [StoreWatchMixin(getCatalogItem)],
-  
-  	//see: https://github.com/rackt/react-router/issues/975
+    mixins: [new StoreWatchMixin(getCatalogItem)],
+
+    //see: https://github.com/rackt/react-router/issues/975
     contextTypes: {
-      router: React.PropTypes.func.isRequired,
+      router: React.PropTypes.func.isRequired
     },
     render: function() {
       return (
@@ -38,8 +38,9 @@ var CatalogDetail =
               <Link to='/' className="btn btn-default">Continue Shopping</Link>
             </div>
           </div>
-        )
+        );
     }
   });
 
 module.exports = CatalogDetail;
+

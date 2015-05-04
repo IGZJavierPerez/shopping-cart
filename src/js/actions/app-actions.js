@@ -13,10 +13,10 @@ var AppActions = {
     setTimeout(function() {
       AppDispatcher.dispatch({
         actionType: ActionTypes.LOAD_CATALOG_SUCCESS,
-        items: [1,2,3,4,5,6,7,8].map(function(number){
+        items: [1, 2, 3, 4, 5, 6, 7, 8].map(function(number){
           return {
             'id': 'Widget' + number,
-            'title':'Widget #' + number,
+            'title': 'Widget #' + number,
             'summary': 'This is an awesome widget!',
             'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, commodi.',
             'img': '/assets/product.png',

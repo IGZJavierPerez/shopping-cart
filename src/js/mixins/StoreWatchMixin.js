@@ -3,16 +3,16 @@ var CartStore = require('../stores/cart-store.js');
 
 var StoreWatchMixin = function(cb){
   return {
-    getInitialState:function(){
+    getInitialState: function() {
       return cb(this);
     },
-    componentWillMount:function(){
+    componentWillMount: function() {
       CartStore.addChangeListener(this._onChange);
     },
-    componentWillUnmount:function(){
+    componentWillUnmount: function() {
       CartStore.removeChangeListener(this._onChange);
     },
-    _onChange:function(){
+    _onChange: function() {
       this.setState(cb(this));
     }
   };

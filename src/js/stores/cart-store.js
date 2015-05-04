@@ -20,45 +20,43 @@ function _loadCatalog(items) {
   });
 }
 
-function _removeItem(index){
+function _removeItem(index) {
   _cartItems[index].inCart = false;
   _cartItems.splice(index, 1);
 }
 
-function _increaseItem(index){
+function _increaseItem(index) {
   _cartItems[index].qty++;
 }
 
-function _decreaseItem(index){
-  if(_cartItems[index].qty>1){
+function _decreaseItem(index) {
+  if ( _cartItems[index].qty > 1 ) {
     _cartItems[index].qty--;
-  }
-  else {
+  } else {
     _removeItem(index);
   }
 }
 
 
-function _addItem(item){
-  if(!item.inCart){
-    item['qty'] = 1;
-    item['inCart'] = true;
+function _addItem(item) {
+  if( !item.inCart ) {
+    item.qty = 1;
+    item.inCart = true;
     _cartItems.push(item);
-  }
-  else {
-    _cartItems.forEach(function(cartItem, i){
-      if(cartItem.id===item.id){
+  } else {
+    _cartItems.forEach( function(cartItem, i) {
+      if( cartItem.id === item.id ) {
         _increaseItem(i);
       }
     });
   }
 }
 
-function _cartTotals(){
-  var qty =0, total = 0;
-  _cartItems.forEach(function(cartItem){
-    qty+=cartItem.qty;
-    total+=cartItem.qty*cartItem.cost;
+function _cartTotals() {
+  var qty = 0, total = 0;
+  _cartItems.forEach(function(cartItem) {
+    qty += cartItem.qty;
+    total += cartItem.qty * cartItem.cost;
   });
   return {'qty': qty, 'total': total};
 }
@@ -73,19 +71,19 @@ var CartStore = assign({}, EventEmitter.prototype, {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function(callback){
+  removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getCart: function(){
+  getCart: function() {
     return _cartItems;
   },
 
-  getCatalog: function(){
+  getCatalog: function() {
     return _catalog;
   },
 
-  getCartTotals: function(){
+  getCartTotals: function() {
     return _cartTotals();
   },
 
@@ -94,14 +92,14 @@ var CartStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-CartStore.dispatchToken = AppDispatcher.register(function(action){
-  switch(action.actionType){
+CartStore.dispatchToken = AppDispatcher.register(function(action) {
+  switch(action.actionType) {
 
-    case ActionTypes.LOAD_CATALOG:      
+    case ActionTypes.LOAD_CATALOG:
       _loading = true;
       break;
 
-    case ActionTypes.LOAD_CATALOG_SUCCESS:      
+    case ActionTypes.LOAD_CATALOG_SUCCESS:
       _loading = false;
       _loadCatalog(action.items);
       break;
@@ -121,7 +119,7 @@ CartStore.dispatchToken = AppDispatcher.register(function(action){
     case ActionTypes.DECREASE_ITEM:
       _decreaseItem(action.index);
       break;
-  };
+  }
 
   CartStore.emitChange();
 

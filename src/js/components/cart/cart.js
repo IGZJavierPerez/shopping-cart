@@ -14,12 +14,12 @@ function cartItems() {
 
 var Cart =
   React.createClass({
-    mixins:[StoreWatchMixin(cartItems)],
-    render:function(){
-      var total=0;
-      var items = this.state.items.map(function(item, i){
-        var subtotal = item.cost*item.qty;
-        total+=subtotal;
+    mixins: [new StoreWatchMixin(cartItems)],
+    render: function() {
+      var total = 0;
+      var items = this.state.items.map(function(item, i) {
+        var subtotal = item.cost * item.qty;
+        total += subtotal;
         return (
           <tr key={i}>
             <td><RemoveFromCart index={i} /></td>
@@ -31,8 +31,8 @@ var Cart =
             </td>
             <td>${subtotal}</td>
           </tr>
-          )
-      })
+          );
+      });
       return (
         <div>
           <table className="table table-hover">
@@ -59,7 +59,8 @@ var Cart =
             Continue Shopping
             </Link>
         </div>
-        )
+        );
     }
   });
+
 module.exports = Cart;

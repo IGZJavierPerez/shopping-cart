@@ -3,7 +3,7 @@ var CartSummary = require('./cartsummary.js');
 
 var Header =
   React.createClass({
-    render:function(){
+    render: function() {
       return (
         <div className="row">
         <div className="col-sm-6"><h1>Lets Shop</h1></div>
@@ -12,7 +12,7 @@ var Header =
             <CartSummary />
           </div>
         </div>
-        )
+        );
     }
   });
 

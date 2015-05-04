@@ -11,8 +11,8 @@ function CartTotals(){
 
 var CartSummary =
   React.createClass({
-    mixins:[StoreWatchMixin(CartTotals)],
-    render:function(){
+    mixins: [new StoreWatchMixin(CartTotals)],
+    render: function() {
       return (
         <div>
           <Link
@@ -22,7 +22,7 @@ var CartSummary =
             </Link>
         </div>
 
-        )
+        );
     }
   });
 

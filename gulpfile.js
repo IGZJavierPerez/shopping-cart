@@ -10,11 +10,13 @@ var util = require('gulp-util');
 var connect = require('gulp-connect');
 var runSequence = require('run-sequence');
 
+var eslint = require('gulp-eslint');
+
 // Define some paths.
 var paths = {
   main: ['./src/js/main.js'],
   index: ['src/index.html'],
-  all_js: ['src/**/*.*'],
+  allJs: ['src/**/*.*'],
   bower: ['src/bower_components/**/*'],
   assets: ['src/assets/**/*']
 };
@@ -30,7 +32,7 @@ gulp.task('clean', function(done) {
 gulp.task('browserify', function() {
   // Browserify/bundle the JS.
   browserify()
-  	.add(paths.main)
+    .add(paths.main)
     .transform(reactify)
     .bundle()
     .on('error', function(err){
@@ -65,18 +67,42 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('copy',['copy_index', 'copy_bower', 'copy_assets']);
+gulp.task('lint', function () {
+  return gulp.src(['src/**/*.js', '!src/bower_components/**/*', 'gulpfile.js'])
+    // eslint() attaches the lint output to the eslint property
+    // of the file object so it can be used by other modules.
+    .pipe(eslint({
+      globals: {
+        'require': true,
+        'document': true,
+        'setTimeout': true,
+        'module': true
+      },
+      rules: {
+        'quotes': 0,
+        'no-unused-vars': 0,
+        'strict': 0,
+        'no-underscore-dangle': 0
+      }
+    }))
+    // eslint.format() outputs the lint results to the console.
+    // Alternatively use eslint.formatEach() (see Docs).
+    .pipe(eslint.format());
+});
+
+gulp.task('copy', ['copy_index', 'copy_bower', 'copy_assets']);
 
 // Rerun tasks whenever a file changes.
 gulp.task('watch', function() {
-  gulp.watch(paths.all_js, ['dist']);
+  gulp.watch(paths.allJs, ['dist']);
 });
 
-gulp.task('dist',['browserify', 'copy']);
+gulp.task('dist', ['lint', 'browserify', 'copy']);
 
 // The default task (called when we run `gulp` from cli)
 gulp.task('default', function(callback) {
-  runSequence('clean',
+  runSequence(
+              'clean',
               'dist',
               ['connect', 'watch'],
               callback);
