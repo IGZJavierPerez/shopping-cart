@@ -3,6 +3,7 @@ var CartStore = require('../../stores/cart-store.js');
 var RemoveFromCart = require('./cart-removefromcart.js');
 var Increase = require('./cart-increase.js');
 var Decrease = require('./cart-decrease.js');
+var StoreWatchMixin = require('../../mixins/StoreWatchMixin.js');
 
 function cartItems() {
   return {items: CartStore.getCart()};
@@ -10,15 +11,7 @@ function cartItems() {
 
 var Cart =
   React.createClass({
-    getInitialState: function() {
-      return cartItems();
-    },
-    componentWillMount: function() {
-      CartStore.addChangeListener(this._onChange);
-    },
-    _onChange: function() {
-      this.setState(cartItems());
-    },
+    mixins:[StoreWatchMixin(cartItems)],
     render:function(){
       var total=0;
       var items = this.state.items.map(function(item, i){

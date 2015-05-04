@@ -1,6 +1,7 @@
 var React = require('react');
 var CartStore = require('../../stores/cart-store.js');
 var AddToCart = require('./catalog-addtocart.js');
+var StoreWatchMixin = require('../../mixins/StoreWatchMixin.js');
 
 function getCatalog() {
   return {
@@ -16,15 +17,7 @@ function isLoading() {
 
 var Catalog =
   React.createClass({
-    getInitialState:function(){
-      return getCatalog();
-    },
-    componentWillMount: function() {
-      CartStore.addChangeListener(this._onChange);
-    },
-    _onChange: function() {
-      this.setState(getCatalog());
-    },
+    mixins:[StoreWatchMixin(getCatalog)],
     render:function(){
 
       var items;

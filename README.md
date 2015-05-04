@@ -13,3 +13,5 @@ npm install
 ```bash
 npm start
 ```
+
+Navigate to [http://localhost:8080](http://localhost:8080)
